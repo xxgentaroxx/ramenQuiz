@@ -63,7 +63,8 @@ shinyServer(function(input, output, session) {
     input$submit
     input$add
     if(input$radio==TRUE){csvraw<-csvraw[csvraw$star<=10,]}
-    ggplot(csvraw, aes(star, distance)) + geom_point() + ylab("Distance")
+    ggplot(csvraw, aes(star, distance, color=kana, size = 4)) + geom_point() + 
+      ylab("Distance") + guides(size=FALSE, color=FALSE)
   })
   
   output$hover <- renderTable({
