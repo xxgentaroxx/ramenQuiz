@@ -12,7 +12,7 @@ shinyServer(function(input, output, session) {
     input$submit
     input$add
     leaflet(csvraw[csvraw$star>=input$star,]) %>% addTiles() %>% setView(mean(csvraw$long), mean(csvraw$lat), zoom = 16) %>% 
-      addMarkers(~long,~lat,label=~kana)
+      addMarkers(~long,~lat,label=~shop)
   })
   
   output$shoptable <- renderTable({
@@ -76,7 +76,7 @@ shinyServer(function(input, output, session) {
   
   output$edit <- renderRHandsontable({
     input$add
-    rhandsontable(csvread[-1]) %>% 
+    rhandsontable(csvread) %>% 
       hot_col("lat", format = "0.0000") %>% 
       hot_col("long", format = "0.0000")
   })
