@@ -2,7 +2,7 @@ library(shiny)
 library(leaflet)
 library(ggplot2)
 library(rhandsontable)
-csvread <- read.csv("quiz.csv", stringsAsFactors = FALSE)
+csvread <- read.csv("quiz.csv", stringsAsFactors = FALSE, fileEncoding = "CP932")
 distance <- sqrt((139.70709-csvread$long)^2+(35.70565-csvread$lat)^2)
 csvraw <- cbind(csvread, distance)
 

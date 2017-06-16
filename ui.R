@@ -1,7 +1,7 @@
 library(shiny)
 library(leaflet)
 library(rhandsontable)
-csvraw <- read.csv("quiz.csv", stringsAsFactors = FALSE)
+csvraw <- read.csv("quiz.csv", stringsAsFactors = FALSE, fileEncoding = "CP932")
 
 shinyUI(navbarPage("Ramen Quiz", theme = "http://bootflat.github.io/css/site.min.css", inverse = TRUE,
   tabPanel("Map", icon = icon("map-o"),
