@@ -3,6 +3,7 @@ library(leaflet)
 library(ggplot2)
 library(rhandsontable)
 csvread <- read.csv("quiz.csv", stringsAsFactors = FALSE, fileEncoding = "CP932")
+csvread$shop <- gsub("表", "〓", csvread$shop)
 distance <- sqrt((139.70709-csvread$long)^2+(35.70565-csvread$lat)^2)
 csvraw <- cbind(csvread, distance)
 
@@ -76,15 +77,15 @@ shinyServer(function(input, output, session) {
   
   output$edit <- renderRHandsontable({
     input$add
-    rhandsontable(csvread) %>% 
+    rhandsontable(csvread2) %>% 
       hot_col("lat", format = "0.0000") %>% 
       hot_col("long", format = "0.0000")
   })
   
   observeEvent(input$submit,{
-    csvsub <- hot_to_r(input$edit)
-    csvread <<- cbind(csvread[1], csvsub)
+    csvread <- hot_to_r(input$edit)
     write.csv(csvread, "quiz.csv", row.names=FALSE)
+    csvread$shop <- gsub("表", "〓", csvread$shop)
     distance <<- sqrt((139.70709-csvread$long)^2+(35.70565-csvread$lat)^2)
     csvraw <<- cbind(csvread, distance)
     showNotification("Edit Complete!", type="message")
